@@ -13,9 +13,7 @@ namespace Isen.Dotnet.Library.Context
         public DbSet<Role> RoleCollection { get; set; }
 
         public DbSet<Service> ServiceCollection { get; set; }
-
-        public DbSet<Personne> PersonneCollection { get; set; }
-
+        
         public ApplicationDbContext(
             [NotNullAttribute] DbContextOptions options) : 
             base(options) {  }
@@ -49,6 +47,20 @@ namespace Isen.Dotnet.Library.Context
             modelBuilder.Entity<Person>()
                 .HasKey(p => p.Id);
 
+            modelBuilder
+                .Entity<Person>()
+                .ToTable(nameof(Person))
+                .HasOne(p => p.RolePerson)
+                .WithMany()
+                .HasForeignKey(p => p.RolePersonId);
+
+            modelBuilder
+                .Entity<Person>()
+                .ToTable(nameof(Person))
+                .HasOne(p => p.ServicePerson)
+                .WithMany()
+                .HasForeignKey(p => p.ServicePersonId);
+
             // Pareil pour City
             modelBuilder
                 .Entity<City>()
@@ -60,24 +72,6 @@ namespace Isen.Dotnet.Library.Context
                 .Entity<Role>()
                 .ToTable(nameof(Role))
                 .HasKey(c => c.Id);
-
-            modelBuilder
-                .Entity<Personne>()
-                .ToTable(nameof(Personne))
-                .HasOne(p => p.RolePersonne)
-                .WithMany()
-                .HasForeignKey(p => p.RolePersonneId);
-
-            modelBuilder
-                .Entity<Personne>()
-                .ToTable(nameof(Personne))
-                .HasOne(p => p.ServicePersonne)
-                .WithMany()
-                .HasForeignKey(p => p.ServicePersonneId);
-               
-
-            modelBuilder.Entity<Personne>()
-            .HasKey(p => p.Id);
 
         }
 

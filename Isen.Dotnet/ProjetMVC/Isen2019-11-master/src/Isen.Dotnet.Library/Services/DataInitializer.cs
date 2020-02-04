@@ -109,7 +109,9 @@ namespace Isen.Dotnet.Library.Services
             LastName = RandomLastName,
             DateOfBirth = RandomDate,
             BirthCity = RandomCity,
-            ResidenceCity = RandomCity
+            ResidenceCity = RandomCity,
+            RolePerson=RandomRole,
+            ServicePerson=RandomService
         };
 
         private Personne RandomPersonne => new Personne()
@@ -180,22 +182,7 @@ namespace Isen.Dotnet.Library.Services
             // Sauvegarder le contexte
             _context.SaveChanges();
         }
-
-        public void AddPersonnes()
-        {
-            _logger.LogWarning("Adding personne...");
-            // S'il y a déjà des personnes dans la base -> ne rien faire
-            if (_context.PersonneCollection.Any()) return;
-            // Générer des personnes
-            var personnes = GetPersonnes();
-
-            Console.WriteLine(personnes);
-            // Les ajouter au contexte
-            _context.AddRange(personnes);
-            // Sauvegarder le contexte
-            _context.SaveChanges();
-        }
-
+     
         public void AddRoles()
         {
             var roles = GetRoles();

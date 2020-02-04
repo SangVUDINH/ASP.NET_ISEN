@@ -32,7 +32,6 @@ namespace Isen.Dotnet.Web
                 dataInitializer.AddRoles();
                 dataInitializer.AddServices();
                 dataInitializer.AddPersons();
-                dataInitializer.AddPersonnes();
                 
             }
             // l'exécuter

@@ -87,6 +87,57 @@
         </div>
     </div>
 
+    <h3>Roles <small>de la personne</small></h3>
+    <div class="col-6">
+        <div class="form-group">
+            <label for="RolePerson">Roles</label>
+            @Html.DropDownListFor(
+                // Quel est le champ du modèle que l'on 
+                // met à jour avec cette liste ?
+                p => p.RolePersonId,
+                // Liste des éléments
+                new SelectList(
+                    // La liste
+                    _context.RoleCollection,
+                    // Le champ d'id
+                    "Id",
+                    // Le champ de libellé
+                    "NomRole"
+                ),
+                // Item par défaut
+                "Sélectionnez un role...",
+                // Classe CSS
+                new { @class = "form-control" }
+            )
+        </div>
+    </div>
+
+    <h3>Service <small>de la personne</small></h3>
+    
+    <div class="col-6">
+        <div class="form-group">
+            <label for="ServicePersonne">Service</label>
+            @Html.DropDownListFor(
+                // Quel est le champ du modèle que l'on 
+                // met à jour avec cette liste ?
+                p => p.ServicePersonId,
+                // Liste des éléments
+                new SelectList(
+                    // La liste
+                    _context.ServiceCollection,
+                    // Le champ d'id
+                    "Id",
+                    // Le champ de libellé
+                    "NomService"
+                ),
+                // Item par défaut
+                "Sélectionnez un service...",
+                // Classe CSS
+                new { @class = "form-control" }
+            )
+        </div>
+    </div>
+
     @{
         var dateTimeString = "";
         if (Model?.DateOfBirth != null) 
