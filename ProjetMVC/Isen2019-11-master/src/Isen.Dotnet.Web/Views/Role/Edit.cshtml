@@ -1,0 +1,63 @@
+@{
+    ViewData["Title"] = "Edition/Creation d'un role";
+}
+@using Isen.Dotnet.Library.Model;
+@using Isen.Dotnet.Library.Context;
+@model Role;
+@inject ApplicationDbContext _context;
+@{
+    List<PersonRole> personroles = new List<PersonRole>();
+    foreach(Person p in _context.Persons)
+    {
+        personroles.Add(new PersonRole{Person=p, Role=@Model});
+    }
+}
+
+<h2>Création ou édition <small>d'un role</small></h2>
+<form class="form-group" asp-action="Edit">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Name">Nom</label>
+                <input
+                    id="Name"
+                    type="text"
+                    class="form-control"
+                    placeholder="Nom du role"
+                    asp-for="NomRole"
+                    value="@Model?.NomRole" />
+            </div>
+        </div>
+    </div>
+    <h3>Personnes ayant ce role</h3>
+    <div class="col-12">
+        <div class="form-group">
+            <label for="PersonRoles">Personnes</label>
+            @Html.ListBoxFor(
+                // Quel est le champ du modèle que l'on 
+                // met à jour avec cette liste ?
+                r => r.PersonRoles,
+                // Liste des éléments
+                new MultiSelectList(
+                    // La liste
+                    personroles,
+                    // Le champ d'id
+                    "Id",
+                    // Le champ de libellé
+                    "Person.LastName"
+                ),
+                // Classe CSS
+                new { @class = "form-control" }
+            )
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Valider</button>
+            <a class="btn btn-secondary" asp-action="Index">Annuler</a>
+        </div>
+    </div>
+
+</form>        
